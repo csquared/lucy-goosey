@@ -1,6 +1,12 @@
 # Lucy::Goosey
 
-TODO: Write a gem description
+Command line parsing sucks.
+`Lucy::Goosey` is the New Jersey style approach to the problem.
+
+It assumes some unix conventions, and doesn't mess with your environment or do anything magic.
+
+I write the tests first and use whatever implementation makes them pass.
+
 
 ## Installation
 
