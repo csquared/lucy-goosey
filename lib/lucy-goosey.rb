@@ -4,10 +4,19 @@ module Lucy
   module Goosey
     UNIX_SINGLE_FLAG = /^-/
     UNIX_DOUBLE_FLAG = /^--/
+    EQUAL = /=/
+
+
+    def self.leading_word?(word)
+      ! (word.match(UNIX_DOUBLE_FLAG) || word.match(UNIX_SINGLE_FLAG) || word.match(EQUAL))
+    end
+
 
     def self.parse_options(_args)
       args = _args.dup
       config = {}
+
+      args = args[1..-1] while leading_word?(args.first)
 
       args.size.times do
         break if args.empty?

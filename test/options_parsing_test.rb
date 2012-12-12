@@ -100,6 +100,11 @@ describe Lucy::Goosey do
     end
 
     describe "edge cases" do
+      it "ignores leading words" do
+        result = Lucy::Goosey.parse_options(%w(wtf bbq --bar foo=baz --baz=bar -n 1 --bap))
+        result.must_equal({ 'foo' => 'baz', 'baz' => 'bar', 'bar' => true, 'n' => '1', 'bap' => true })
+      end
+
       it "works in any order" do
         result = Lucy::Goosey.parse_options(%w(--bar foo=baz --baz=bar bob=true --bap))
         result.must_equal({ 'foo' => 'baz', 'baz' => 'bar', 'bar' => true, 'bob' => true, 'bap' => true })
