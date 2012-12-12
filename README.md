@@ -7,6 +7,26 @@ It assumes some unix conventions, and doesn't mess with your environment or do a
 
 Heavily tested.
 
+## Examples
+
+```ruby
+  options = Lucy::Goosey.parse_options(%w{-n 1})
+
+  options['n']
+  # => '1'
+
+  options = Lucy::Goosey.parse_options(%w{--n 1 --foo bar --baz})
+
+  options['n']
+  # => '1'
+
+  options['foo']
+  # => 'bar'
+
+  options['baz']
+  # => true
+```
+
 
 ## Installation
 
