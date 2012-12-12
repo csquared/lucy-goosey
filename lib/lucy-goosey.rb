@@ -16,6 +16,9 @@ module Lucy
       args = _args.dup
       config = {}
 
+      raise ArgumentError, 'must be an array' unless _args.is_a? Array
+      return config if _args.empty?
+
       args = args[1..-1] while leading_word?(args.first)
 
       args.size.times do

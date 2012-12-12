@@ -5,6 +5,11 @@ describe Lucy::Goosey do
   describe "::parse_options" do
 
     describe "simple cases" do
+      it "returns empty hash with empty array" do
+        result = Lucy::Goosey.parse_options([])
+        result.must_equal({})
+      end
+
       it "understands -n" do
         result = Lucy::Goosey.parse_options(%w(-n))
         result.must_equal({'n' => true})
@@ -95,6 +100,14 @@ describe Lucy::Goosey do
               end
             end
           end
+        end
+      end
+    end
+
+    describe "bad input" do
+      it "expects an array" do
+        assert_raises ArgumentError do
+          Lucy::Goosey.parse_options('')
         end
       end
     end
