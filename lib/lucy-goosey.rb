@@ -8,6 +8,7 @@ module Lucy
 
 
     def self.leading_word?(word)
+      return unless word
       ! (word.match(UNIX_DOUBLE_FLAG) || word.match(UNIX_SINGLE_FLAG) || word.match(EQUAL))
     end
 
@@ -17,7 +18,7 @@ module Lucy
       config = {}
 
       raise ArgumentError, 'must be an array' unless _args.is_a? Array
-      return config if _args.empty?
+      return config if args.empty?
 
       args = args[1..-1] while leading_word?(args.first)
 
