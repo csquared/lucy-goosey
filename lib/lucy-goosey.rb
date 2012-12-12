@@ -22,6 +22,9 @@ module Lucy
     end
 
 
+    # Public: parses array of options, loosely assuming unix-style conventions.
+    #
+    # Returns a Hash
     def self.parse_options(_args)
       args = _args.dup
       config = {}
@@ -30,6 +33,7 @@ module Lucy
       return config if args.empty?
 
       args.reverse!
+      # get rid of leading words
       args.pop while args.last && !magic_word?(args.last)
 
       args.size.times do
@@ -49,7 +53,6 @@ module Lucy
         end
         next unless key and value
 
-        value = true if value == 'true'
         key = deflag(key)
         config[key] = value
       end
