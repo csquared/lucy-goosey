@@ -1,7 +1,7 @@
 require 'minitest/spec'
-require 'lucy-goosey'
+require 'lucy'
 
-describe Lucy::Goosey do
+describe Lucy do
   describe "::parse_options" do
     describe "combinatorial tests" do
       before do
@@ -24,7 +24,7 @@ describe Lucy::Goosey do
           test_string = "#{first} #{second}"
           # two levels deep
           it "understands #{test_string}" do
-            result = Lucy::Goosey.parse_options(test_string.split(' '))
+            result = Lucy.parse_options(test_string.split(' '))
             tester(first, result)
             tester(second, result)
           end
@@ -35,7 +35,7 @@ describe Lucy::Goosey do
             test_string = "#{first} #{second} #{third}"
 
             it "understands #{test_string}" do
-              result = Lucy::Goosey.parse_options(test_string.split(' '))
+              result = Lucy.parse_options(test_string.split(' '))
               tester(first, result)
               tester(second, result)
               tester(third, result)
@@ -47,7 +47,7 @@ describe Lucy::Goosey do
               test_string = "#{first} #{second} #{third} #{fourth}"
 
               it "understands #{test_string}" do
-                result = Lucy::Goosey.parse_options(test_string.split(' '))
+                result = Lucy.parse_options(test_string.split(' '))
                 tester(first, result)
                 tester(second, result)
                 tester(third, result)
@@ -59,7 +59,7 @@ describe Lucy::Goosey do
               test_string = "#{first} #{second} #{third} #{fourth} #{fifth}"
 
               it "understands #{test_string}" do
-                result = Lucy::Goosey.parse_options(test_string.split(' '))
+                result = Lucy.parse_options(test_string.split(' '))
                 tester(first, result)
                 tester(second, result)
                 tester(third, result)

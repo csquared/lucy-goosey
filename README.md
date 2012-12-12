@@ -1,21 +1,21 @@
-# Lucy::Goosey
+# Lucy
 
 Command line parsing sucks.
-`Lucy::Goosey` is the New Jersey style approach to the problem.
+`Lucy` is the New Jersey style approach to the problem.
 
-It assumes some unix conventions, and doesn't mess with your environment or do anything magic.
+She's a good citizen: assumes some unix conventions, doesn't mess with your environment, and doesn't do anything magic.
 
 Heavily tested.
 
 ## Examples
 
 ```ruby
-  options = Lucy::Goosey.parse_options(%w{-n 1})
+  options = Lucy.parse_options(%w{-n 1})
 
   options['n']
   # => '1'
 
-  options = Lucy::Goosey.parse_options(%w{--n 1 --foo bar --baz})
+  options = Lucy.parse_options(%w{--n 1 --foo bar --baz})
 
   options['n']
   # => '1'
@@ -32,7 +32,7 @@ Heavily tested.
 
 Add this line to your application's Gemfile:
 
-    gem 'lucy-goosey'
+    gem 'lucy'
 
 And then execute:
 
@@ -40,7 +40,7 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install lucy-goosey
+    $ gem install lucy
 
 ## Usage
 

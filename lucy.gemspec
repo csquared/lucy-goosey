@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'lucy-goosey/version'
+require 'lucy/version'
 
 Gem::Specification.new do |gem|
-  gem.name          = "lucy-goosey"
-  gem.version       = Lucy::Goosey::VERSION
+  gem.name          = "lucy"
+  gem.version       = Lucy::VERSION
   gem.authors       = ["Chris Continanza"]
   gem.email         = ["christopher.continanza@gmail.com"]
   gem.description   = %q{Simple, fast, and looose command line option parser.}
