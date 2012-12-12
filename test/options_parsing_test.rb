@@ -15,6 +15,11 @@ describe Lucy::Goosey do
         result.must_equal({'n' => true})
       end
 
+      it "understands -n is the best" do
+        result = Lucy::Goosey.parse_options(%w(-n is the best))
+        result.must_equal({'n' => 'is the best'})
+      end
+
       it "understands -n 1" do
         result = Lucy::Goosey.parse_options(%w(-n 1))
         result.must_equal({'n' => '1'})
@@ -51,6 +56,14 @@ describe Lucy::Goosey do
     end
 
     describe "edge cases" do
+      it "lets you use lots of words" do
+        result = Lucy::Goosey.parse_options(%w(wtf bbq --foo bar none --foo-baz -n 1 -t))
+        result.must_equal({'foo' => 'bar none', 'foo-baz' => true, 't' => true, 'n' => '1'})
+
+        result = Lucy::Goosey.parse_options(%w(wtf bbq -foo bar none --foo-baz -n 1 -t))
+        result.must_equal({'foo' => 'bar none', 'foo-baz' => true, 't' => true, 'n' => '1'})
+      end
+
       it "ignores leading words" do
         result = Lucy::Goosey.parse_options(%w(wtf bbq --bar foo=baz --baz=bar -n 1 --bap))
         result.must_equal({ 'foo' => 'baz', 'baz' => 'bar', 'bar' => true, 'n' => '1', 'bap' => true })

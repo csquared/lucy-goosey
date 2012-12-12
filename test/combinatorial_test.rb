@@ -11,6 +11,7 @@ describe Lucy::Goosey do
           when /--n/ then result['n'].must_equal '1'
           when /tru/ then result['truth'].must_equal true
           when /a=b/ then result['a'].must_equal 'b'
+          when /fudge/ then result['fudge'].must_equal 'cakes are good'
           end
         end
       end

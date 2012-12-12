@@ -7,9 +7,18 @@ module Lucy
     EQUAL = /=/
 
 
-    def self.leading_word?(word)
+    def self.magic_word?(word)
       return unless word
-      ! (word.match(UNIX_DOUBLE_FLAG) || word.match(UNIX_SINGLE_FLAG) || word.match(EQUAL))
+      (self.flag?(word) || word.match(EQUAL))
+    end
+
+    def self.flag?(word)
+      return unless word
+      word.match(UNIX_DOUBLE_FLAG) || word.match(UNIX_SINGLE_FLAG)
+    end
+
+    def self.deflag(word)
+      word.sub(UNIX_DOUBLE_FLAG, '').sub(UNIX_SINGLE_FLAG,'')
     end
 
 
@@ -17,28 +26,31 @@ module Lucy
       args = _args.dup
       config = {}
 
-      raise ArgumentError, 'must be an array' unless _args.is_a? Array
+      raise ArgumentError, 'must be an array' unless args.is_a? Array
       return config if args.empty?
 
-      args = args[1..-1] while leading_word?(args.first)
+      args.reverse!
+      args.pop while args.last && !magic_word?(args.last)
 
       args.size.times do
         break if args.empty?
-        arg  = args.shift
-        peek = args.first
-        key  = arg
-        if key.match(/=/)
-          key, value = key.split('=', 2)
-        elsif peek && peek.match(/=/)
-          config[key.sub(UNIX_DOUBLE_FLAG, '')] = true
-          key, value = peek.split('=', 2)
-        elsif peek.nil? || peek.match(UNIX_DOUBLE_FLAG) || peek.match(UNIX_SINGLE_FLAG)
-          value = true
-        else
-          value = args.shift
+        head = args.pop
+        peek = args.last
+
+        key, value = nil, nil
+        if head.match(/=/)
+          key, value = head.split('=', 2)
+        elsif peek.nil? || magic_word?(peek)
+          key, value  = head, true
+        elsif peek
+          key, value = head, [args.pop]
+          value << args.pop while (args.last && !magic_word?(args.last))
+          value = value.join(' ')
         end
+        next unless key and value
+
         value = true if value == 'true'
-        key = key.sub(UNIX_DOUBLE_FLAG, '').sub(UNIX_SINGLE_FLAG,'')
+        key = deflag(key)
         config[key] = value
       end
 
