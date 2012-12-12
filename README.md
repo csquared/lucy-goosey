@@ -5,7 +5,7 @@ Command line parsing sucks.
 
 It assumes some unix conventions, and doesn't mess with your environment or do anything magic.
 
-I write the tests first and use whatever implementation makes them pass.
+Heavily tested.
 
 
 ## Installation
