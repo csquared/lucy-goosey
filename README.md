@@ -15,8 +15,7 @@ Heavily tested.
   options['n']
   # => '1'
 
-  options = Lucy::Goosey.parse_options(%w{--n 1 --foo bar --baz --db postgres:///local-dev-db})
-
+  options = Lucy::Goosey.parse_options(%w{-n 1 --foo bar --baz})
   options['n']
   # => '1'
 
@@ -26,17 +25,23 @@ Heavily tested.
   options['baz']
   # => true
 
+
+  options = Lucy::Goosey.parse_options(%w{foo=bar --db postgres:///local-dev-db})
+
+  options['foo']
+  # => 'bar'
+
   options['db']
   # => 'postgres:///local-dev-db'
 
-  options = Lucy::Goosey.parse_options(%w{-n 1 foo=bar --baz})
+  options = Lucy::Goosey.parse_options(%w{-n 1 foo=bar -t})
   options['n']
   # => '1'
 
   options['foo']
   # => 'bar'
 
-  options['baz']
+  options['t']
   # => true
 
   options = Lucy::Goosey.parse_options(%w{--this is pretty cool -foo bar --baz})
@@ -63,9 +68,10 @@ Or install it yourself as:
 
     $ gem install lucy-goosey
 
-## Usage
+## Quotes!
 
-TODO: Write usage instructions here
+    "so simple, I love it!" - Pedro Belo
+    "oh thats gross"        - Dane Harrigan
 
 ## Contributing
 
