@@ -43,10 +43,6 @@ Heavily tested.
   options['this']
   # => 'is pretty cool'
 
-  options = Lucy::Goosey.parse_options(%w{--this is pretty cool -foo bar --baz})
-  options['this']
-  # => 'is pretty cool'
-
   options = Lucy::Goosey.parse_options(%w{ignore leading words --for the win})
   options
   # => {'for' => 'the win'}
