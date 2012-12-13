@@ -15,7 +15,7 @@ Heavily tested.
   options['n']
   # => '1'
 
-  options = Lucy::Goosey.parse_options(%w{--n 1 --foo bar --baz})
+  options = Lucy::Goosey.parse_options(%w{--n 1 --foo bar --baz --db postgres:///local-dev-db})
 
   options['n']
   # => '1'
@@ -25,6 +25,31 @@ Heavily tested.
 
   options['baz']
   # => true
+
+  options['db']
+  # => 'postgres:///local-dev-db'
+
+  options = Lucy::Goosey.parse_options(%w{-n 1 foo=bar --baz})
+  options['n']
+  # => '1'
+
+  options['foo']
+  # => 'bar'
+
+  options['baz']
+  # => true
+
+  options = Lucy::Goosey.parse_options(%w{--this is pretty cool -foo bar --baz})
+  options['this']
+  # => 'is pretty cool'
+
+  options = Lucy::Goosey.parse_options(%w{--this is pretty cool -foo bar --baz})
+  options['this']
+  # => 'is pretty cool'
+
+  options = Lucy::Goosey.parse_options(%w{ignore leading words --for the win})
+  options
+  # => {'for' => 'the win'}
 ```
 
 
