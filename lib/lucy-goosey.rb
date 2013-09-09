@@ -6,6 +6,15 @@ module Lucy
     UNIX_DOUBLE_FLAG = /^--/
     EQUAL = /=/
 
+    class OptionsHash < Hash
+      attr_accessor :argv
+
+      # Returns true if -h or --help are any of the arg
+      # or 'help' is the first word to argv
+      def help?
+        self['h'] || self['help'] || argv[0] == 'help'
+      end
+    end
 
     def self.magic_word?(word)
       return unless word
@@ -21,16 +30,20 @@ module Lucy
       word.sub(UNIX_DOUBLE_FLAG, '').sub(UNIX_SINGLE_FLAG,'')
     end
 
+    def self.parse(_args)
+      self.parse_options(_args)
+    end
 
     # Public: parses array of options, loosely assuming unix-style conventions.
     #
     # Returns a Hash
     def self.parse_options(_args)
       args = _args.dup
-      config = {}
+      options = OptionsHash.new
+      options.argv = _args.dup
 
       raise ArgumentError, 'must be an array' unless args.is_a? Array
-      return config if args.empty?
+      return options if args.empty?
 
       args.reverse!
       # get rid of leading words
@@ -54,10 +67,10 @@ module Lucy
         next unless key and value
 
         key = deflag(key)
-        config[key] = value
+        options[key] = value
       end
 
-      config
+      options
     end
   end
 end
